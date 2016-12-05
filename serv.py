@@ -16,17 +16,20 @@ class SocketManager:
     def __exit__(self, *ignore):
         self.sock.close()
 
+def process():
+    while True:
+    conn, addr = sock.accept()
+    while True:
+        data = conn.recv(1024)
+        print(data)
+        if not data or 'close' in data.encode('utf-8'):
+            return
+
+        conn.sendall(data)
+
+
 
 with SocketManager(('0.0.0.0', 2222)) as sock:
     # sock.listen(1)
-    while True:
-        conn, addr = sock.accept()
-        while True:
-            data = conn.recv(1024)
-            print(data)
-            if not data or 'close' in data.encode('utf-8'):
-                break
-
-            conn.sendall(data)
-
+    process()
 
