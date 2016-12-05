@@ -16,7 +16,7 @@ class SocketManager:
     def __exit__(self, *ignore):
         self.sock.close()
 
-def process():
+def process(sock):
     while True:
     conn, addr = sock.accept()
     while True:
@@ -31,5 +31,5 @@ def process():
 
 with SocketManager(('0.0.0.0', 2222)) as sock:
     # sock.listen(1)
-    process()
+    process(sock)
 
